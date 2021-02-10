@@ -9,10 +9,17 @@ namespace ConsoleUI
     //Open Closed Principle
     class Program
     {
+        //Core'a yazilanlar bir kez yazilir kalicidir.
         static void Main(string[] args)
         {
-            // ProductTest();
+            //DTO = Data Transformation Object
+            ProductTest();
             //IoC 
+            //CategoryTest();
+        }
+
+        private static void CategoryTest()
+        {
             CategoryManager categoryManager = new CategoryManager(new EfCategoryDal());
             foreach (var category in categoryManager.GetAll())
             {
@@ -24,9 +31,17 @@ namespace ConsoleUI
         {
             ProductManager productManager = new ProductManager(new EfProductDal());
 
-            foreach (var product in productManager.GetByUnitPrice(40, 100))
+            var result = productManager.GetProductDetails();
+
+            if (result.Success==true)
             {
-                Console.WriteLine(product.ProductName);
+                foreach (var product in productManager.GetProductDetails().Data)
+                {
+                    Console.WriteLine(product.ProductName + "/" + product.CategoryName);
+                }
+            }else
+            {
+                Console.WriteLine(result.Message);
             }
         }
     }
