@@ -153,6 +153,11 @@ namespace Business.Concrete
         {
             throw new NotImplementedException();
         }
+
+        public object GetByCategory(int id)
+        {
+            throw new NotImplementedException();
+        }
     }
 
 }
